@@ -30,6 +30,8 @@ class AddNoteViewController: UIViewController {
         case .edit:
             viewNote()
             addRightButton(title: "Редактировать", state: .edit)
+        default:
+            break
         }
         
         //Listen for keyboard event

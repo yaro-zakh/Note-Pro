@@ -15,6 +15,7 @@
 		B9D9EAB92285970F007D325C /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9EAB82285970F007D325C /* DateExtension.swift */; };
 		B9D9EABB2285A885007D325C /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9EABA2285A885007D325C /* StringExtension.swift */; };
 		B9D9EAC12286BCD4007D325C /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9EAC02286BCD4007D325C /* DBManager.swift */; };
+		B9D9EAC322871542007D325C /* NotesTableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D9EAC222871542007D325C /* NotesTableViewExtension.swift */; };
 		B9F6010A22854D020097176A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F6010922854D020097176A /* AppDelegate.swift */; };
 		B9F6010F22854D020097176A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9F6010D22854D020097176A /* Main.storyboard */; };
 		B9F6011122854D060097176A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F6011022854D060097176A /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 		B9D9EAB82285970F007D325C /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		B9D9EABA2285A885007D325C /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		B9D9EAC02286BCD4007D325C /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		B9D9EAC222871542007D325C /* NotesTableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewExtension.swift; sourceTree = "<group>"; };
 		B9F6010622854D020097176A /* Notes Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Notes Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9F6010922854D020097176A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9F6010E22854D020097176A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				B9D9EAB022855FB3007D325C /* NotesTableViewController.swift */,
+				B9D9EAC222871542007D325C /* NotesTableViewExtension.swift */,
 			);
 			path = NotesView;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				B9F6010A22854D020097176A /* AppDelegate.swift in Sources */,
 				B9D9EAC12286BCD4007D325C /* DBManager.swift in Sources */,
 				B9D9EAB92285970F007D325C /* DateExtension.swift in Sources */,
+				B9D9EAC322871542007D325C /* NotesTableViewExtension.swift in Sources */,
 				B9D9EAA82285524B007D325C /* Note.swift in Sources */,
 				B9D9EAB722857A07007D325C /* AddNoteViewController.swift in Sources */,
 				B9D9EAB422856472007D325C /* NoteTableViewCell.swift in Sources */,

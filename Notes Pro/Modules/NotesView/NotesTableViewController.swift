@@ -9,9 +9,12 @@
 import UIKit
 import RealmSwift
 
-var state = StateNote.save
+var state = StateNote.`default`
 
 class NotesTableViewController: UITableViewController {
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    var notes = [Note]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,20 +33,25 @@ class NotesTableViewController: UITableViewController {
     
     @IBAction func addNewNote(_ sender: UIBarButtonItem) {
         state = .save
-//        let saveNoteVC = storyboard?.instantiateViewController(withIdentifier: "addNoteViewController") as! AddNoteViewController
-//        saveNoteVC.currentNote = nil
-//        navigationController?.pushViewController(saveNoteVC, animated: true)
         pushToSecondVC(note: nil)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if state == .searching {
+            return notes.count
+        }
         return DBManager.sharedInstance.getDataFromDB().count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteTableViewCell", for: indexPath) as! NoteTableViewCell
-        let note = DBManager.sharedInstance.getDataFromDB()[indexPath.row] as Note
-        cell.note = note
+        if state == .searching {
+            cell.note = notes[indexPath.row]
+        } else {
+            cell.note = DBManager.sharedInstance.getDataFromDB()[indexPath.row] as Note
+        }
+        //let note = DBManager.sharedInstance.getDataFromDB()[indexPath.row] as Note
+        //cell.note = note
         return cell
     }
     
@@ -51,9 +59,6 @@ class NotesTableViewController: UITableViewController {
         state = .view
         tableView.deselectRow(at: indexPath, animated: true)
         let selectedNote = DBManager.sharedInstance.getDataFromDB()[indexPath.row] as Note
-//        let viewNoteVC = storyboard?.instantiateViewController(withIdentifier: "addNoteViewController") as! AddNoteViewController
-//        viewNoteVC.currentNote = selectedNote
-//        navigationController?.pushViewController(viewNoteVC, animated: true)
         pushToSecondVC(note: selectedNote)
     }
     

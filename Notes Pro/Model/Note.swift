@@ -20,5 +20,5 @@ class Note: Object {
 }
 
 enum StateNote {
-    case save, edit, view
+    case save, edit, view, searching, `default`
 }

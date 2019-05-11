@@ -18,9 +18,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" showsCancelButton="YES" id="nsu-jJ-waA">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="6kz-El-5Nu" id="kSX-o7-Gls"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="noteTableViewCell" rowHeight="150" id="8Ys-ya-30l" customClass="NoteTableViewCell" customModule="Notes_Pro" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="414" height="150"/>
+                                <rect key="frame" x="0.0" y="99.5" width="414" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Ys-ya-30l" id="b1I-4G-5bk">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="149.5"/>
@@ -66,6 +74,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="nsu-jJ-waA" id="PlS-rZ-z7o"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MTF-jb-XSY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
