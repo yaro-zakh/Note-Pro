@@ -14,6 +14,7 @@ extension NotesTableViewController: UISearchBarDelegate {
         if searchText.count == 0 {
             state = .`default`
         } else {
+            textInSearchBar = searchText
             notes = Array(DBManager.sharedInstance.getDataFromDB().filter("text CONTAINS '\(searchText)'"))
             state = .searching
         }

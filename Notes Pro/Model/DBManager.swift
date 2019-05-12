@@ -34,6 +34,7 @@ class DBManager {
         try! database.write {
             oldObject.text = newObject.text
             oldObject.date = newObject.date
+            oldObject.modify = newObject.modify
             print("Data update")
         }
     }

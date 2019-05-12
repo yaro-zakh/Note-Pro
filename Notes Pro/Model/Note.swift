@@ -12,7 +12,8 @@ import RealmSwift
 class Note: Object {
     @objc dynamic var id = 0
     @objc dynamic var text = ""
-    @objc dynamic var date = ""
+    @objc dynamic var date = Date()
+    @objc dynamic var modify = false
     
     override static func primaryKey() -> String? {
         return "id"
@@ -20,5 +21,5 @@ class Note: Object {
 }
 
 enum StateNote {
-    case save, edit, view, searching, `default`
+    case save, edit, view, searching, sort, `default`
 }

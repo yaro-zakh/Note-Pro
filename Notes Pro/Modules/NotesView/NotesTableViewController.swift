@@ -15,10 +15,11 @@ class NotesTableViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     var notes = [Note]()
+    var textInSearchBar = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupBarButton()
         detectTapInEmptyTable()
     }
     
@@ -27,14 +28,16 @@ class NotesTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    func setupBarButton() {
+        let sortedButton = UIBarButtonItem(image: cutImage(name: "sort", size: 20), style: .plain, target: self, action: #selector(sortNotes))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewNote))
+        navigationItem.rightBarButtonItems = [addButton, sortedButton]
+    }
+    
     func detectTapInEmptyTable() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tableTapped))
         tableView.backgroundView = UIView()
         tableView.backgroundView?.addGestureRecognizer(tap)
-    }
-    
-    @objc func tableTapped() {
-        searchBar.endEditing(true)
     }
     
     func pushToSecondVC(note: Note?) {
@@ -43,13 +46,56 @@ class NotesTableViewController: UITableViewController {
         navigationController?.pushViewController(secondVC, animated: true)
     }
     
-    @IBAction func addNewNote(_ sender: UIBarButtonItem) {
+    func cutImage(name: String, size: Int) -> UIImage {
+        return UIGraphicsImageRenderer(size: CGSize(width: size, height: size)).image { _ in
+            UIImage(named: name)?.draw(in: CGRect(x: 0, y: 0, width: size, height: size))}
+    }
+    
+    func getSortedNotes(value: String, desc: Bool) {
+        if state == .searching {
+            notes = Array(DBManager.sharedInstance.getDataFromDB().filter("text CONTAINS '\(self.textInSearchBar)'").sorted(byKeyPath: value, ascending: desc))
+        } else {
+            state = .sort
+            notes = Array(DBManager.sharedInstance.getDataFromDB().sorted(byKeyPath: value, ascending: desc))
+        }
+        tableView.reloadData()
+    }
+    
+    @objc func tableTapped() {
+        searchBar.endEditing(true)
+    }
+    
+    @objc func sortNotes() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "По алфавиту", style: .default, handler: { (_) in
+            self.getSortedNotes(value: "text", desc: true)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "От новых к старым", style: .default, handler: { (_) in
+            self.getSortedNotes(value: "date", desc: false)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "От старых к новым", style: .default, handler: { (_) in
+            self.getSortedNotes(value: "date", desc: true)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { (_) in
+            print("User click Dismiss button")
+        }))
+        
+        self.present(alert, animated: true, completion: {
+        })
+    }
+    
+    @objc func addNewNote() {
+        searchBar.text = nil
+        searchBar.endEditing(true)
         state = .save
         pushToSecondVC(note: nil)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if state == .searching {
+        if state == .searching || state == .sort {
             return notes.count
         }
         return DBManager.sharedInstance.getDataFromDB().count
@@ -57,7 +103,7 @@ class NotesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteTableViewCell", for: indexPath) as! NoteTableViewCell
-        if state == .searching {
+        if state == .searching || state == .sort {
             cell.note = notes[indexPath.row]
         } else {
             cell.note = DBManager.sharedInstance.getDataFromDB()[indexPath.row] as Note
@@ -79,8 +125,7 @@ class NotesTableViewController: UITableViewController {
             let editNote = DBManager.sharedInstance.getDataFromDB()[indexPath.row] as Note
             self.pushToSecondVC(note: editNote)
         })
-        editAction.image = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
-            UIImage(named: "edit")?.draw(in: CGRect(x: 0, y: 0, width: 30, height: 30))}
+        editAction.image = cutImage(name: "edit", size: 30)
         editAction.backgroundColor = .gray
         
         return UISwipeActionsConfiguration(actions: [editAction])
@@ -96,8 +141,7 @@ class NotesTableViewController: UITableViewController {
             DBManager.sharedInstance.deleteFromDb(object: deleteNote)
             tableView.deleteRows(at: [indexPath], with: .left)
         })
-        deleteAction.image = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
-            UIImage(named: "delete")?.draw(in: CGRect(x: 0, y: 0, width: 30, height: 30))}
+        deleteAction.image = cutImage(name: "delete", size: 30)
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }

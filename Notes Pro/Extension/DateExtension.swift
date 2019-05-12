@@ -9,11 +9,10 @@
 import Foundation
 
 extension Date {
-    var currentDateToSting:  String  {
-        let date = Date()
+    var currentDateToSting: String {
         let format = DateFormatter()
         format.dateFormat = "HH:mm dd.MM.yy "
-        let formattedDate = format.string(from: date)
+        let formattedDate = format.string(from: self)
         return formattedDate
     }
 }

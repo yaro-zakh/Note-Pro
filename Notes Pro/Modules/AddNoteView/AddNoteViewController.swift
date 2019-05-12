@@ -88,11 +88,11 @@ class AddNoteViewController: UIViewController {
                 note.id = DBManager.sharedInstance.getDataFromDB().count
             }
             note.text = noteText.text!
+            note.date = Date()
             if state == .edit {
-                note.date = "Ред. " + Date().currentDateToSting
+                note.modify = true
                 DBManager.sharedInstance.updateData(oldObject: currentNote!, newObject: note)
             } else {
-                note.date = Date().currentDateToSting
                 DBManager.sharedInstance.addData(object: note)
             }
             navigationController?.popViewController(animated: true)

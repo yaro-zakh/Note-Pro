@@ -46,6 +46,12 @@
                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9D-nU-17M">
+                                            <rect key="frame" x="363.5" y="139" width="0.0" height="0.0"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="bal-gp-UbP" firstAttribute="leading" secondItem="b1I-4G-5bk" secondAttribute="leadingMargin" id="4fT-Cm-t7C"/>
@@ -53,12 +59,15 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="bal-gp-UbP" secondAttribute="trailing" id="EFO-JU-pmv"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="q6f-cB-GEZ" secondAttribute="trailing" id="ZK7-1Y-NzG"/>
                                         <constraint firstItem="q6f-cB-GEZ" firstAttribute="bottom" secondItem="b1I-4G-5bk" secondAttribute="bottomMargin" id="bG2-RV-GkH"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="d9D-nU-17M" secondAttribute="bottom" id="f3J-5T-1tb"/>
+                                        <constraint firstItem="q6f-cB-GEZ" firstAttribute="leading" secondItem="d9D-nU-17M" secondAttribute="trailing" constant="5" id="lHP-QP-Lu8"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="bal-gp-UbP" secondAttribute="bottom" constant="30" id="pco-SR-mdD"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="dateLabel" destination="q6f-cB-GEZ" id="aET-d4-8Hk"/>
                                     <outlet property="noteTextLabel" destination="bal-gp-UbP" id="RSC-CC-d9L"/>
+                                    <outlet property="stateLabel" destination="d9D-nU-17M" id="nVh-h2-JtT"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -67,13 +76,7 @@
                             <outlet property="delegate" destination="6kz-El-5Nu" id="wvi-zc-7jF"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Заметки" id="Fs1-hs-AQN">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="H4C-nO-9ao">
-                            <connections>
-                                <action selector="addNewNote:" destination="6kz-El-5Nu" id="8Gr-fA-CC1"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Заметки" id="Fs1-hs-AQN"/>
                     <connections>
                         <outlet property="searchBar" destination="nsu-jJ-waA" id="PlS-rZ-z7o"/>
                     </connections>
