@@ -15,19 +15,19 @@ class AddNoteViewController: UIViewController {
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var currentNote: Note?
-    //var editRealmNote: Results<Note>?
     var rightButton = UIBarButtonItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = rightButton
+        //navigationItem.rightBarButtonItem = rightButton
         
         switch state {
         case .save:
             addRightButton(title: "Сохранить", state: .save)
         case .view:
             viewNote()
+            addRightButton(title: "", state: .view)
         case .edit:
             viewNote()
             addRightButton(title: "Редактировать", state: .edit)
@@ -62,7 +62,15 @@ class AddNoteViewController: UIViewController {
             rightButton.action = #selector(touchEditBarButtonItem)
         } else if state == .save {
             rightButton.action = #selector(touchSaveBarButtonItem)
+        } else if state == .view {
+            rightButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(touchShareButtonItem))
         }
+        navigationItem.rightBarButtonItem = rightButton
+    }
+    
+    @objc func touchShareButtonItem() {
+        let shareVC = UIActivityViewController(activityItems: [noteText.text!], applicationActivities: [])
+        present(shareVC, animated: true)
     }
     
     @objc func touchEditBarButtonItem() {
@@ -87,7 +95,6 @@ class AddNoteViewController: UIViewController {
                 note.date = Date().currentDateToSting
                 DBManager.sharedInstance.addData(object: note)
             }
-            //DBManager.sharedInstance.addData(object: note)
             navigationController?.popViewController(animated: true)
         }
     }
