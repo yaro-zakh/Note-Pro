@@ -15,6 +15,7 @@ class AddNoteViewController: UIViewController {
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var currentNote: Note?
+    //var editRealmNote: Results<Note>?
     var rightButton = UIBarButtonItem()
     
     override func viewDidLoad() {
@@ -81,10 +82,12 @@ class AddNoteViewController: UIViewController {
             note.text = noteText.text!
             if state == .edit {
                 note.date = "Ред. " + Date().currentDateToSting
+                DBManager.sharedInstance.updateData(oldObject: currentNote!, newObject: note)
             } else {
                 note.date = Date().currentDateToSting
+                DBManager.sharedInstance.addData(object: note)
             }
-            DBManager.sharedInstance.addData(object: note)
+            //DBManager.sharedInstance.addData(object: note)
             navigationController?.popViewController(animated: true)
         }
     }

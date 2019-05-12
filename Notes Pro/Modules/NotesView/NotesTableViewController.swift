@@ -18,11 +18,23 @@ class NotesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        detectTapInEmptyTable()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+    }
+    
+    func detectTapInEmptyTable() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tableTapped))
+        tableView.backgroundView = UIView()
+        tableView.backgroundView?.addGestureRecognizer(tap)
+    }
+    
+    @objc func tableTapped() {
+        searchBar.endEditing(true)
     }
     
     func pushToSecondVC(note: Note?) {
@@ -50,8 +62,6 @@ class NotesTableViewController: UITableViewController {
         } else {
             cell.note = DBManager.sharedInstance.getDataFromDB()[indexPath.row] as Note
         }
-        //let note = DBManager.sharedInstance.getDataFromDB()[indexPath.row] as Note
-        //cell.note = note
         return cell
     }
     
@@ -79,8 +89,12 @@ class NotesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             success(true)
+            if state == .searching {
+                self.notes.remove(at: indexPath.row)
+            }
             let deleteNote = DBManager.sharedInstance.getDataFromDB()[indexPath.row] as Note
             DBManager.sharedInstance.deleteFromDb(object: deleteNote)
+            tableView.deleteRows(at: [indexPath], with: .left)
         })
         deleteAction.image = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
             UIImage(named: "delete")?.draw(in: CGRect(x: 0, y: 0, width: 30, height: 30))}

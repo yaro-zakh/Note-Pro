@@ -30,6 +30,14 @@ class DBManager {
         }
     }
     
+    func updateData(oldObject: Note, newObject: Note) {
+        try! database.write {
+            oldObject.text = newObject.text
+            oldObject.date = newObject.date
+            print("Data update")
+        }
+    }
+    
     func deleteAllDatabase()  {
         try! database.write {
             database.deleteAll()
