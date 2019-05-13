@@ -121,8 +121,13 @@ class NotesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let editAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             success(true)
+            var editNote = Note()
+            if state == .searching || state == .sort {
+                editNote = self.notes[indexPath.row]
+            } else {
+                editNote = DBManager.sharedInstance.getDataFromDB()[indexPath.row] as Note
+            }
             state = .edit
-            let editNote = DBManager.sharedInstance.getDataFromDB()[indexPath.row] as Note
             self.pushToSecondVC(note: editNote)
         })
         editAction.image = cutImage(name: "edit", size: 30)
@@ -134,7 +139,7 @@ class NotesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             success(true)
-            if state == .searching {
+            if state == .searching || state == .sort {
                 self.notes.remove(at: indexPath.row)
             }
             let deleteNote = DBManager.sharedInstance.getDataFromDB()[indexPath.row] as Note

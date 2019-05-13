@@ -26,6 +26,8 @@ class NoteTableViewCell: UITableViewCell {
         dateLabel.text = note.date.currentDateToSting
         if note.modify {
             stateLabel.text = "Ред."
+        } else {
+            stateLabel.text = nil
         }
     }
 }
